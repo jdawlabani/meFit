@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
+from flask_app.models.workout import Workout
 
 EMAIL_REGEX = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
@@ -34,6 +35,16 @@ class User:
         query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         return cls(results[0])
+
+    @classmethod
+    def get_by_id_with_workouts(cls,data):
+        query = "SELECT * FROM users LEFT JOIN workouts ON workouts.user_id = users.id WHERE users.id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query)
+        user = cls(results[0])
+        for dict in results:
+            if not dict['workouts.id'] == None:
+                user.workouts.append(Workout.get_by_id(dict['workouts.id']))
+        return user
 
     @classmethod
     def get_by_email(cls, data):

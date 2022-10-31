@@ -26,13 +26,19 @@ class Workout:
         return workout_list
 
     @classmethod
-    def get_all_workouts_by_user(cls, data):
-        query = "SELECT * FROM workouts WHERE user_id = %(user_id)s"
-        results = connectToMySQL(cls.db).query_db(query)
-        workout_list= []
-        for dict in results:
-            workout_list.append(cls(dict))
-        return workout_list
+    def get_by_id(cls, data):
+        query = "SELECT * FROM workouts WHERE id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return cls(results[0])
+
+    # @classmethod
+    # def get_all_workouts_by_user(cls, data):
+    #     query = "SELECT * FROM workouts WHERE user_id = %(user_id)s"
+    #     results = connectToMySQL(cls.db).query_db(query)
+    #     workout_list= []
+    #     for dict in results:
+    #         workout_list.append(cls(dict))
+    #     return workout_list
 
     @classmethod
     def update_by_id(cls, data):

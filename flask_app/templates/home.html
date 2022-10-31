@@ -8,11 +8,13 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center col-8 mx-auto bg-dark text-success">
         <h1>Welcome to meFit!</h1>
         <div class="m-3">
-            <h3>User: {{user.username}}</h3>
-            <a href="/workout/new" class="mr-3">New Workout</a>
+            <h3>{{user.username}}, let's get to work!</h3>
+            <a href="/workouts/new" class="mr-2">New Workout</a>
+            <a href="/exercises/new" class="mr-2">New Exercise</a>
+            <a href="/exercises" class="mr-2">All Exercises</a>
             <a href="/logout">Logout</a>
         </div>
     </div>
@@ -21,15 +23,6 @@
         <div class="border border-dark border-3 d-flex justify-content-between align-items-center">
             <div class="ml-3">
                 <a href="/workout/"+workout.id>{{workout.name}}</a>
-            </div>
-            <div class="mr-3">
-                {% if user.id != sighting.user_id %}
-                    <a href="/sighting/view/{{sighting.id}}">View</a>
-                {% endif %}
-                {% if user.id == sighting.user_id %}
-                    <a href="/sighting/edit/{{sighting.id}}">Edit</a>
-                    <a href="/sighting/delete/{{sighting.id}}">Delete</a>
-                {% endif %}
             </div>
         </div>
     {% endfor %}

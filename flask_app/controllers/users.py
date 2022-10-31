@@ -38,7 +38,7 @@ def login():
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        return render_template('home.html', user= User.get_by_id({'id': session['user_id']}), users = User.get_all_users(), workouts = Workout.get_all_workouts_by_user())
+        return render_template('home.html', user= User.get_by_id({'id': session['user_id']}))
     return redirect('/')
 
 @app.route('/logout')

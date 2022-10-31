@@ -28,7 +28,7 @@ class Exercise:
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
-    def get_all(cls,data):
+    def get_all(cls):
         query = "SELECT * FROM exercises;"
         results = connectToMySQL(cls.db).query_db(query)
         exercise_list= []
