@@ -2,7 +2,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 
 class Workout:
-    db = 'meFit'
+    db = 'fitness'
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
@@ -51,7 +51,7 @@ class Workout:
     def is_valid(workout_data):
         is_valid = True
         all_workouts = Workout.get_all()
-        if len(workout_data['name']) <= 2:
+        if len(workout_data['name']) < 2:
             flash('Workout name must be at least 2 characters long.')
             is_valid = False
         for workout in all_workouts:

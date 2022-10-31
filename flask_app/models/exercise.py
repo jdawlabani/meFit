@@ -12,7 +12,7 @@ regex = ("((http|https)://)(www.)?" +
 URL_REGEX = re.compile(regex)
 
 class Exercise:
-    db = 'meFit'
+    db = 'fitness'
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
@@ -59,7 +59,7 @@ class Exercise:
         for type in all_types:
             if type == exercise_data['type']:
                 is_valid = True
-        if len(exercise_data['name']) <= 2:
+        if len(exercise_data['name']) < 2:
             flash('Exercise name must be at least 2 characters long.')
             is_valid = False
         if not URL_REGEX.match(exercise_data['video']):

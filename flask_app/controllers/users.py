@@ -15,8 +15,7 @@ def index():
 def register():
     if User.is_valid(request.form):
         data = {
-            'first_name': request.form['first_name'],
-            'last_name' : request.form['last_name'],
+            'username': request.form['username'],
             'email': request.form['email'],
             'password': bcrypt.generate_password_hash(request.form['password'])
         }
@@ -39,7 +38,7 @@ def login():
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        return render_template('home.html', user= User.get_by_id({'id': session['user_id']}), users = User.get_all_users(), sightings = Sighting.get_all_sightings())
+        return render_template('home.html', user= User.get_by_id({'id': session['user_id']}), users = User.get_all_users(), workouts = Workout.get_all_workouts_by_user())
     return redirect('/')
 
 @app.route('/logout')

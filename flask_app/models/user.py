@@ -5,7 +5,7 @@ import re
 EMAIL_REGEX = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
 class User:
-    db = 'meFit'
+    db = 'fitness'
     def __init__(self, data):
         self.id = data['id']
         self.username = data['username']
@@ -59,10 +59,10 @@ class User:
         if not EMAIL_REGEX.match(user_data['email']):
             flash('Please enter a valid email.')
             is_valid = False
-        if len(user_data['username']) <= 2:
+        if len(user_data['username']) < 2:
             flash('Username must be at least 2 characters long.')
             is_valid = False
-        if len(user_data['password']) <= 8:
+        if len(user_data['password']) < 8:
             flash('Password must be at least 8 characters long.')
             is_valid = False
         for user in all_users:
