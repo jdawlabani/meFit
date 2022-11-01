@@ -55,10 +55,13 @@ class Exercise:
     def is_valid(exercise_data):
         is_valid = False
         all_exercises = Exercise.get_all()
-        all_types = ['Lower body', 'Push', 'Pull']
+        all_types = ['Lower Body', 'Push', 'Pull']
         for type in all_types:
             if type == exercise_data['type']:
                 is_valid = True
+        #if is_valid is still false, then the
+        if not is_valid:
+            flash('Invalid type.')
         if len(exercise_data['name']) < 2:
             flash('Exercise name must be at least 2 characters long.')
             is_valid = False
