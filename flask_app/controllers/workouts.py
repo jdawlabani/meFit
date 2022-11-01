@@ -5,7 +5,7 @@ from flask_app.models.workout import Workout
 
 @app.route('/workouts/new')
 def newWorkout():
-    return render_template('newWorkout.html', messages= get_flashed_messages())
+    return render_template('new_workout.html', messages= get_flashed_messages())
 
 @app.route('/workouts/create', methods=['post'])
 def generateWorkout():
@@ -17,4 +17,5 @@ def generateWorkout():
             'user_id': session['user_id']
         }
         Workout.create(data)
-    return redirect('/home')
+        return redirect('/home')
+    return redirect('/workouts/new')

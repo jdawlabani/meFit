@@ -16,13 +16,10 @@ class Workout:
     @classmethod
     def create(cls, data):
         query = "INSERT INTO workouts (name, user_id) VALUES (%(name)s, %(user_id)s);"
-        results = connectToMySQL(cls.db).query_db(query, data)
-        workout = cls(results[0])
-        query = "SELECT * FROM exercises WHERE type = %(type)s"
-        results = connectToMySQL(cls.db).query_db(query, data)
-        exercise_list = []
-        for dict in results:
-            exercise_list.append(Exercise(dict))
+        connectToMySQL(cls.db).query_db(query, data)
+        exercise_list = Exercise.get_by_type(data)
+        #Need to figure out a way to grab the workout once it's created.
+        workout = Workout.get_by_name(data['name'])
         #if there aren't enough exercises to fill the workout, change the number of exercises
         if len(exercise_list) < data['num_of_exercises']:
             data['num_of_exercises'] = len(exercise_list)
@@ -42,13 +39,6 @@ class Workout:
             else:
                 x = x-1
         return workout
-        
-
-    @classmethod
-    def generate(cls, data):
-        query = "SELECT * FROM exercises WHERE type = %(type)s"
-        results = connectToMySQL(cls.db).query_db(query, data)
-
 
     @classmethod
     def get_all(cls):
@@ -62,6 +52,12 @@ class Workout:
     @classmethod
     def get_by_id(cls, data):
         query = "SELECT * FROM workouts WHERE id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        return cls(results[0])
+
+    @classmethod
+    def get_by_name(cls,data):
+        query = "SELECT * FROM workouts WHERE name = %(name)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         return cls(results[0])
 
