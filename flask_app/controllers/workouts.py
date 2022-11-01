@@ -4,11 +4,11 @@ from flask import render_template, redirect, request, session, flash, get_flashe
 from flask_app.models.workout import Workout
 
 @app.route('/workouts/new')
-def newWorkout():
+def new_workout():
     return render_template('new_workout.html', messages= get_flashed_messages())
 
 @app.route('/workouts/create', methods=['post'])
-def generateWorkout():
+def generate_workout():
     if Workout.is_valid(request.form):
         data = {
             'name': request.form['name'],
@@ -19,3 +19,8 @@ def generateWorkout():
         Workout.create(data)
         return redirect('/home')
     return redirect('/workouts/new')
+
+@app.route('/workouts/edit<int:id>')
+def edit_workout(id):
+    this_workout = Workout.get_by_id({'id': id})
+    return render_template('edit_workout.html', workout = this_workout, messages = get_flashed_messages)
