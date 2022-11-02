@@ -16,10 +16,22 @@ def generate_workout():
             'num_of_exercises': request.form['num_of_exercises'],
             'user_id': session['user_id']
         }
-        Workout.create(data)
+        id = Workout.create(data)
+        data = {
+            'name': request.form['name'],
+            'type': request.form['type'],
+            'num_of_exercises': request.form['num_of_exercises'],
+            'user_id': session['user_id'],
+            'id': id
+        }
+        Workout.load_exercises(data)
         return redirect('/home')
     return redirect('/workouts/new')
 
+@app.route('/workouts/show/<int:id>')
+def show_workout(id):
+    this_workout = Workout.get_by_id()
+    return render_template('show_workout.html', workout = this_workout)
 @app.route('/workouts/edit<int:id>')
 def edit_workout(id):
     this_workout = Workout.get_by_id({'id': id})

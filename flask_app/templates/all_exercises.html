@@ -28,7 +28,7 @@
             <tbody>
                 {% for exercise in exercises%}
                     <tr>
-                        <td>{{exercise.name}}</td>
+                        <td><a href="/exercises/{{exercise.id}}">{{exercise.name}}</a></td>
                         <td>{{exercise.type}}</td>
                         <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
                     </tr>

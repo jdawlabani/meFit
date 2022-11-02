@@ -8,6 +8,7 @@ class Workout:
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
+        self.type = data['type']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
@@ -15,11 +16,14 @@ class Workout:
 
     @classmethod
     def create(cls, data):
-        query = "INSERT INTO workouts (name, user_id) VALUES (%(name)s, %(user_id)s);"
-        connectToMySQL(cls.db).query_db(query, data)
+        query = "INSERT INTO workouts (name, type, user_id) VALUES (%(name)s, %(type)s, %(user_id)s);"
+        return connectToMySQL(cls.db).query_db(query, data)
+
+    @classmethod
+    def load_exercises(cls, data):
         exercise_list = Exercise.get_by_type(data)
         #Need to figure out a way to grab the workout once it's created.
-        workout = Workout.get_by_name(data['name'])
+        workout = Workout.get_by_id(data)
         #if there aren't enough exercises to fill the workout, change the number of exercises
         if len(exercise_list) < data['num_of_exercises']:
             data['num_of_exercises'] = len(exercise_list)
@@ -64,7 +68,7 @@ class Workout:
     @classmethod
     def get_all_workouts_by_user(cls, data):
         query = "SELECT * FROM workouts WHERE user_id = %(user_id)s"
-        results = connectToMySQL(cls.db).query_db(query)
+        results = connectToMySQL(cls.db).query_db(query, data)
         workout_list= []
         for dict in results:
             workout_list.append(cls(dict))

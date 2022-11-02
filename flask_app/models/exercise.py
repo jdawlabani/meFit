@@ -24,7 +24,7 @@ class Exercise:
 
     @classmethod
     def create(cls, data):
-        query = "INSERT INTO exercises (name, type, video) VALUES (%(name)s, %(type)s, %(video)s)"
+        query = "INSERT INTO exercises (name, type, sets, reps, video) VALUES (%(name)s, %(type)s, %(sets)s, %(reps)s, %(video)s)"
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
@@ -53,7 +53,7 @@ class Exercise:
 
     @classmethod
     def update_by_id(cls, data):
-        query = "UPDATE exercises SET name = %(name)s, type = %(type)s, video = %(video)s WHERE id = %(id)s"
+        query = "UPDATE exercises SET name = %(name)s, type = %(type)s, sets = %(sets)s, reps = %(reps)s , video = %(video)s WHERE id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
         return
     

@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <title>Home</title>
-</head>
-<body>
-    <div class="d-flex justify-content-between align-items-center col-8 mx-auto bg-dark text-success">
-        <h1>Welcome to meFit!</h1>
-        <div class="m-3">
-            <h3>{{user.username}}, let's get to work!</h3>
-            <a href="/workouts/new" class="mr-2">New Workout</a>
-            <a href="/exercises/new" class="mr-2">New Exercise</a>
-            <a href="/exercises" class="mr-2">All Exercises</a>
-            <a href="/logout">Logout</a>
-        </div>
+  </head>
+  <body>
+    <div class="col-8 mx-auto bg-dark text-success p-4">
+    <div
+      class="d-flex justify-content-between align-items-center"
+    >
+      <h1>Welcome to meFit!</h1>
+      <div class="m-3">
+        <h3>{{user.username}}, let's get to work!</h3>
+        <a href="/workouts/new" class="mr-2">New Workout</a>
+        <a href="/exercises/new" class="mr-2">New Exercise</a>
+        <a href="/exercises" class="mr-2">All Exercises</a>
+        <a href="/logout">Logout</a>
+      </div>
+          </div>
+          <h3>Your Workouts:</h3>
+      <table class="table table-success table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <!-- <th scope="col">Type</th>
+                    <th scope="col">How to Video Link:</th> -->
+          </tr>
+        </thead>
+        <tbody>
+        {% if workouts %} 
+            {% for workout in workouts%}
+            <tr>
+                <td><a href="/workout/{{workout.id}}">{{workout.name}}</a></td>
+            </tr>
+            {% endfor %} 
+        {% endif %}
+        </tbody>
+      </table>
     </div>
-    <h3>Your Workouts:</h3>
-    {% for workout in workouts %}
-        <div class="border border-dark border-3 d-flex justify-content-between align-items-center">
-            <div class="ml-3">
-                <a href="/workout/"+workout.id>{{workout.name}}</a>
-            </div>
-        </div>
-    {% endfor %}
-</body>
+
+  </body>
 </html>
