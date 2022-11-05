@@ -10,7 +10,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous"
     />
-    <title>Document</title>
+    <title>{{workout.name}}</title>
 </head>
 <body>
     <div class="bg-dark text-success col-10 mx-auto p-3">
@@ -21,7 +21,13 @@
                 <a href="/logout">Logout</a>
             </div>
         </div>
-        <p>Type: {{workout.type}}</p>
+        <div class="d-flex justify-content-between">
+            <p>Type: {{workout.type}}</p>
+            <div>
+                <a href="/workouts/edit/{{workout.id}}" class="mr-3">Edit Workout Name</a>
+                <a href="/workouts/delete/{{workout.id}}">Delete Workout</a>
+            </div>
+        </div>
         <p>{{workout.name}}'s exercises:</p>
         <table class="table table-success table-striped">
             <thead>

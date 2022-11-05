@@ -98,16 +98,17 @@ class Workout:
 
     @classmethod
     def update_by_id(cls, data):
-        query = "UPDATE exercises SET name = %(name)s, type = %(type)s, video = %(video)s WHERE id = %(id)s"
-        results = connectToMySQL(cls.db).query_db(query, data)
+        query = "UPDATE workouts SET name = %(name)s, type = %(type)s, user_id = %(user_id)s WHERE id = %(id)s"
+        connectToMySQL(cls.db).query_db(query, data)
         return
 
-    #Still needs completion
     @classmethod
-    def get_one_with_exercises(cls, data):
-        query = "SELECT * FROM workouts LEFT JOIN "
-        results = connectToMySQL(cls.db).query_db(query)
-        return results
+    def delete_by_id(cls, data):
+        query = "DELETE FROM workouts WHERE id = %(id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        query = "DELETE FROM workout_exercise WHERE workout_id = %(id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        return
 
     @staticmethod
     def is_valid(workout_data):

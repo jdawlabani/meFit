@@ -31,8 +31,7 @@
         <thead>
           <tr>
             <th scope="col">Name</th>
-            <!-- <th scope="col">Type</th>
-                    <th scope="col">How to Video Link:</th> -->
+            <th scope="col">Type</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +39,7 @@
             {% for workout in workouts%}
             <tr>
                 <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
+                <td>{{workout.type}}</td>
             </tr>
             {% endfor %} 
         {% endif %}

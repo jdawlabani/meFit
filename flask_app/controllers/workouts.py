@@ -32,7 +32,27 @@ def generate_workout():
 def show_workout(id):
     this_workout = Workout.get_by_id_with_exercises({'id': id})
     return render_template('show_workout.html', workout = this_workout)
-@app.route('/workouts/edit<int:id>')
+
+@app.route('/workouts/edit/<int:id>')
 def edit_workout(id):
     this_workout = Workout.get_by_id({'id': id})
-    return render_template('edit_workout.html', workout = this_workout, messages = get_flashed_messages)
+    return render_template('edit_workout.html', workout = this_workout, messages = get_flashed_messages())
+
+@app.route('/workouts/update/<int:id>', methods=['post'])
+def update_workout(id):
+    if Workout.is_valid(request.form):
+        this_workout = Workout.get_by_id({'id': id})
+        data = {
+            'id': id,
+            'name': request.form['name'],
+            'type': this_workout.type,
+            'user_id': this_workout.user_id,
+        }
+        Workout.update_by_id(data)
+        return redirect('/workouts/'+str(id))
+    return redirect('/workouts/edit/'+str(id))
+
+@app.route('/workouts/delete/<int:id>')
+def delete_workout(id):
+    Workout.delete_by_id({'id': id})
+    return redirect('/home')
