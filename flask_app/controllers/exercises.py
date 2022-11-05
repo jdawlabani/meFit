@@ -16,6 +16,8 @@ def create_exercise():
         data = {
             'name': request.form['name'],
             'type': request.form['type'],
+            'sets': request.form['sets'],
+            'reps': request.form['reps'],
             'video': request.form['video']
         }
         Exercise.create(data)

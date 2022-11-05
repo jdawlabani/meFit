@@ -28,9 +28,9 @@ def generate_workout():
         return redirect('/home')
     return redirect('/workouts/new')
 
-@app.route('/workouts/show/<int:id>')
+@app.route('/workouts/<int:id>')
 def show_workout(id):
-    this_workout = Workout.get_by_id()
+    this_workout = Workout.get_by_id_with_exercises({'id': id})
     return render_template('show_workout.html', workout = this_workout)
 @app.route('/workouts/edit<int:id>')
 def edit_workout(id):

@@ -25,23 +25,26 @@ class Workout:
         #Need to figure out a way to grab the workout once it's created.
         workout = Workout.get_by_id(data)
         #if there aren't enough exercises to fill the workout, change the number of exercises
-        if len(exercise_list) < data['num_of_exercises']:
+        if len(exercise_list) < int(data['num_of_exercises']):
             data['num_of_exercises'] = len(exercise_list)
-        for x in range(data['num_of_exercises']):
+        count = 0
+        while (count < int(data['num_of_exercises'])):
             #choose a random exercise and check if it's already in the workout.
             y = random.randint(0,len(exercise_list)-1)
-            print(y)
-            if not exercise_list[y] in workout.exercises:
+            #let's use an array to track what numbers we have already used
+            z = []
+            if not y in z:
+                #grab the id that will go to our many to many table
                 ids = {
                     'workout_id': workout.id,
                     'exercise_id': exercise_list[y].id
                 }
-
+                #add random number to array to avoid repeats
+                z.append(y)
                 query = "INSERT INTO workout_exercise (exercise_id, workout_id) VALUES (%(exercise_id)s,%(workout_id)s);"
                 connectToMySQL(cls.db).query_db(query, ids)
-                workout.exercises.append(exercise_list[x])
-            else:
-                x = x-1
+                #increment count
+                count += 1
         return workout
 
     @classmethod
@@ -58,6 +61,25 @@ class Workout:
         query = "SELECT * FROM workouts WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         return cls(results[0])
+
+    @classmethod
+    def get_by_id_with_exercises(cls, data):
+        query = "SELECT * FROM workouts LEFT JOIN workout_exercise ON workout_exercise.workout_id = workouts.id LEFT JOIN exercises ON workout_exercise.exercise_id = exercises.id WHERE workouts.id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        this_workout = cls(results[0])
+        for dict in results:
+            exercise_data = {
+                'id': dict['exercises.id'],
+                'name': dict['exercises.name'],
+                'type': dict['exercises.type'],
+                'video': dict['video'],
+                'sets': dict['sets'],
+                'reps': dict['reps'],
+                'created_at': dict['exercises.created_at'],
+                'updated_at': dict['exercises.updated_at']
+            }
+            this_workout.exercises.append(Exercise(exercise_data))
+        return this_workout
 
     @classmethod
     def get_by_name(cls,data):
