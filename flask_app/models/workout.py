@@ -22,7 +22,6 @@ class Workout:
     @classmethod
     def load_exercises(cls, data):
         exercise_list = Exercise.get_by_type(data)
-        #Need to figure out a way to grab the workout once it's created.
         workout = Workout.get_by_id(data)
         #if there aren't enough exercises to fill the workout, change the number of exercises
         if len(exercise_list) < int(data['num_of_exercises']):
