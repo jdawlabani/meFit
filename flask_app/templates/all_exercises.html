@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>All Exercises</title>
 </head>
+
 <body>
     <div class="bg-dark text-success col-10 mx-auto p-3">
         <div class="d-flex justify-content-between align-items-center">
             <h1>All Exercises</h1>
             <div>
-            <a href="/exercises/new" class="mr-1 btn btn-info">Create a New Exercise</a>
-            <a href="/home" class="mr-1 btn btn-info">Home</a>
-            <a href="/logout" class="btn btn-info">Logout</a>
+                <a href="/exercises/new" class="mr-1 btn btn-info">Create a New Exercise</a>
+                <a href="/home" class="mr-1 btn btn-info">Home</a>
+                <a href="/logout" class="btn btn-info">Logout</a>
             </div>
         </div>
-    
+
         <table class="table table-success table-striped">
             <thead>
                 <tr>
@@ -30,16 +33,17 @@
             </thead>
             <tbody>
                 {% for exercise in exercises%}
-                    <tr>
-                        <td><a href="/exercises/{{exercise.id}}">{{exercise.name}}</a></td>
-                        <td>{{exercise.type}}</td>
-                        <td>{{exercise.sets}}</td>
-                        <td>{{exercise.reps}}</td>
-                        <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
-                    </tr>
+                <tr>
+                    <td><a href="/exercises/{{exercise.id}}">{{exercise.name}}</a></td>
+                    <td>{{exercise.type}}</td>
+                    <td>{{exercise.sets}}</td>
+                    <td>{{exercise.reps}}</td>
+                    <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </body>
+
 </html>

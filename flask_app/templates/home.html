@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <title>Home</title>
-  </head>
-  <body>
-    <div class="col-8 mx-auto bg-dark text-success p-4">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <title>Home</title>
+</head>
+
+<body>
+  <div class="col-8 mx-auto bg-dark text-success p-4">
     <div class="d-flex justify-content-between">
       <h1>Welcome to meFit!</h1>
       <div class="text-right">
@@ -23,27 +21,28 @@
         <a href="/exercises" class="btn btn-info">All Exercises</a>
         <a href="/logout" class="btn btn-info">Logout</a>
       </div>
-          </div>
-          <h3>Your Workouts:</h3>
-      <table class="table table-success table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Type</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% if workouts %} 
-            {% for workout in workouts%}
-            <tr>
-                <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
-                <td>{{workout.type}}</td>
-            </tr>
-            {% endfor %} 
-        {% endif %}
-        </tbody>
-      </table>
     </div>
+    <h3>Your Workouts:</h3>
+    <table class="table table-success table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if workouts %}
+        {% for workout in workouts%}
+        <tr>
+          <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
+          <td>{{workout.type}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 
-  </body>
+</body>
+
 </html>
