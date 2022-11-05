@@ -28,12 +28,12 @@ class Workout:
         if len(exercise_list) < int(data['num_of_exercises']):
             data['num_of_exercises'] = len(exercise_list)
         count = 0
+        #let's use an array to track what numbers we have already used
+        z = []
         while (count < int(data['num_of_exercises'])):
             #choose a random exercise and check if it's already in the workout.
             y = random.randint(0,len(exercise_list)-1)
-            #let's use an array to track what numbers we have already used
-            z = []
-            if not y in z:
+            if y not in z:
                 #grab the id that will go to our many to many table
                 ids = {
                     'workout_id': workout.id,
@@ -41,6 +41,7 @@ class Workout:
                 }
                 #add random number to array to avoid repeats
                 z.append(y)
+                print(z)
                 query = "INSERT INTO workout_exercise (exercise_id, workout_id) VALUES (%(exercise_id)s,%(workout_id)s);"
                 connectToMySQL(cls.db).query_db(query, ids)
                 #increment count
