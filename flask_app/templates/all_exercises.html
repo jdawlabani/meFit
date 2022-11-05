@@ -22,6 +22,8 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Recommended Sets</th>
+                    <th scope="col">Recommended Reps</th>
                     <th scope="col">How to Video Link:</th>
                 </tr>
             </thead>
@@ -30,6 +32,8 @@
                     <tr>
                         <td><a href="/exercises/{{exercise.id}}">{{exercise.name}}</a></td>
                         <td>{{exercise.type}}</td>
+                        <td>{{exercise.sets}}</td>
+                        <td>{{exercise.reps}}</td>
                         <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
                     </tr>
                 {% endfor %}

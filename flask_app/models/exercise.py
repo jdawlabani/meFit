@@ -18,6 +18,8 @@ class Exercise:
         self.name = data['name']
         self.type = data['type']
         self.video = data['video']
+        self.sets = data['sets']
+        self.reps = data['reps']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.workouts = []
