@@ -5,19 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>New Exercise</title>
+    <title>Edit {{exercise.name}}</title>
 </head>
 <body>
     <div class="d-flex justify-content-between align-items-center bg-dark text-success col-8 mx-auto p-3">
         <h1>meFit</h1>
         <div>
-            <a href="/home" class="mr-4">Home</a>
-            <a href="/exercises">All Exercises</a>
+            <a href="/exercises" class="mr-1 btn btn-info">All Exercises</a>
+            <a href="/home" class="mr-1 btn btn-info">Home</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+            
         </div>
     </div>
     <div class="bg-dark text-success text-center col-8 mx-auto m-0 p-3">
         <h2>Edit {{exercise.name}}</h2>
-        <form action="/exercises/create", method="post">
+        <form action="/exercises/update/{{exercise.id}}", method="post">
             <div>
                 <label for="name">Name:</label>
                 <input type="name" name="name" value="{{exercise.name}}">
@@ -30,10 +32,34 @@
                     <option value="Pull">Pull</option>
                 </select>
             </div>
+            <div>
+                <label for="sets">Recommended sets for exercise:</label>
+                <select name="sets">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div>
+                <label for="reps">Recommended sets for exercise:</label>
+                <select name="reps">
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+
             <label for="video">How to video link:</label>
             <input type="video" name="video" value="{{exercise.video}}">
             <br>
-            <button class="btn btn-success">Create Exercise</button>
+            <button class="btn btn-success">Update Exercise</button>
         </form>
     </div>
     <div class="bg-dark text-danger text-center col-8 mx-auto">

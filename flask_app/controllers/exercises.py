@@ -24,9 +24,33 @@ def create_exercise():
         return redirect('/home')
     return redirect('/exercises/new')
 
+@app.route('/exercises/<int:id>')
+def show_exercise(id):
+    this_exercise = Exercise.get_by_id({'id': id})
+    return render_template('show_exercise.html', exercise = this_exercise)
+
+
 @app.route('/exercises/edit/<int:id>')
 def edit_exercise(id):
     this_exercise = Exercise.get_by_id({'id': id})
-    return render_template('edit_exercise.html', exercise = this_exercise, messages = get_flashed_messages)
+    return render_template('edit_exercise.html', exercise = this_exercise, messages = get_flashed_messages())
     
+@app.route('/exercises/update/<int:id>', methods=['post'])
+def update_exercise(id):
+    data = {
+        'id' : id,
+        'name': request.form['name'],
+        'type': request.form['type'],
+        'sets': request.form['sets'],
+        'reps': request.form['reps'],
+        'video': request.form['video']
+    }
+    if Exercise.is_valid_update(data):
+        Exercise.update_by_id(data)
+        return redirect('/exercises/'+ str(id))
+    return redirect('/exercises/edit/' + str(id))
 
+@app.route('/exercises/delete/<int:id>')
+def delete_exercise(id):
+    Exercise.delete_by_id({'id': id})
+    return redirect('/home')

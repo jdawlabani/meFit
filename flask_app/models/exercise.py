@@ -58,13 +58,12 @@ class Exercise:
         query = "UPDATE exercises SET name = %(name)s, type = %(type)s, sets = %(sets)s, reps = %(reps)s , video = %(video)s WHERE id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
         return
-    
-    # @classmethod
-    # def get_all_exercises_by_workout(cls,data):
 
     @classmethod
-    def delete(cls, data):
+    def delete_by_id(cls, data):
         query = "DELETE FROM exercises WHERE id = %(id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        query = "DELETE FROM workout_exercise WHERE exercise_id = %(id)s;"
         connectToMySQL(cls.db).query_db(query, data)
         return
 
@@ -76,7 +75,7 @@ class Exercise:
         for type in all_types:
             if type == exercise_data['type']:
                 is_valid = True
-        #if is_valid is still false, then the
+        #if is_valid is still false, then need to flash that the type is invalid
         if not is_valid:
             flash('Invalid type.')
         if len(exercise_data['name']) < 2:
@@ -87,6 +86,30 @@ class Exercise:
             is_valid = False
         for exercise in all_exercises:
             if exercise.name == exercise_data['name']:
+                flash("Exercise name must be unique")
+                is_valid = False
+        return is_valid
+
+    #this method is needed for updating because unique check will trip once you check the name against itself in the database if name hasn't been changed
+    @staticmethod
+    def is_valid_update(exercise_data):
+        is_valid = False
+        all_exercises = Exercise.get_all()
+        all_types = ['Lower Body', 'Push', 'Pull']
+        for type in all_types:
+            if type == exercise_data['type']:
+                is_valid = True
+        #if is_valid is still false, then need to flash that the type is invalid
+        if not is_valid:
+            flash('Invalid type.')
+        if len(exercise_data['name']) < 2:
+            flash('Exercise name must be at least 2 characters long.')
+            is_valid = False
+        if not URL_REGEX.match(exercise_data['video']):
+            flash('Please enter a valid video URL.')
+            is_valid = False
+        for exercise in all_exercises:
+            if exercise.name == exercise_data['name'] and exercise.id != exercise_data['id']:
                 flash("Exercise name must be unique")
                 is_valid = False
         return is_valid

@@ -17,18 +17,19 @@
         <div class="d-flex justify-content-between">
             <h1>{{workout.name}}</h1>
             <div>
-                <a href="/home" class="mr-3">Home</a>
-                <a href="/logout">Logout</a>
+                <a href="/home" class="mr-1 btn btn-info">Home</a>
+                <a href="/logout" class="btn btn-info">Logout</a>
             </div>
         </div>
+        <p>Type: {{workout.type}}</p>
         <div class="d-flex justify-content-between">
-            <p>Type: {{workout.type}}</p>
+            <p>{{workout.name}}'s exercises:</p>
             <div>
-                <a href="/workouts/edit/{{workout.id}}" class="mr-3">Edit Workout Name</a>
-                <a href="/workouts/delete/{{workout.id}}">Delete Workout</a>
+                <a href="/workouts/edit/{{workout.id}}" class="mr-2 btn btn-info">Edit Workout Name</a>
+                <a href="/workouts/delete/{{workout.id}}" class="btn btn-danger">Delete Workout</a>
             </div>
         </div>
-        <p>{{workout.name}}'s exercises:</p>
+        
         <table class="table table-success table-striped">
             <thead>
                 <tr>

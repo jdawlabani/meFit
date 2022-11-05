@@ -14,16 +14,14 @@
   </head>
   <body>
     <div class="col-8 mx-auto bg-dark text-success p-4">
-    <div
-      class="d-flex justify-content-between align-items-center"
-    >
+    <div class="d-flex justify-content-between">
       <h1>Welcome to meFit!</h1>
-      <div class="m-3">
-        <h3>{{user.username}}, let's get to work!</h3>
-        <a href="/workouts/new" class="mr-2">New Workout</a>
-        <a href="/exercises/new" class="mr-2">New Exercise</a>
-        <a href="/exercises" class="mr-2">All Exercises</a>
-        <a href="/logout">Logout</a>
+      <div class="text-right">
+        <h2>{{user.username}}, let's get to work!</h2>
+        <a href="/workouts/new" class="btn btn-info">New Workout</a>
+        <a href="/exercises/new" class="btn btn-info">New Exercise</a>
+        <a href="/exercises" class="btn btn-info">All Exercises</a>
+        <a href="/logout" class="btn btn-info">Logout</a>
       </div>
           </div>
           <h3>Your Workouts:</h3>
