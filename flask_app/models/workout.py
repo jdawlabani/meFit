@@ -21,7 +21,10 @@ class Workout:
 
     @classmethod
     def load_exercises(cls, data):
-        exercise_list = Exercise.get_by_type(data)
+        if data['type'] == 'Full Body':
+            exercise_list = Exercise.get_all()
+        else:
+            exercise_list = Exercise.get_by_type(data)
         workout = Workout.get_by_id(data)
         #if there aren't enough exercises to fill the workout, change the number of exercises
         if len(exercise_list) < int(data['num_of_exercises']):

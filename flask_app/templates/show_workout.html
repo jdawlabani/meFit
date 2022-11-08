@@ -10,47 +10,45 @@
     <title>{{workout.name}}</title>
 </head>
 
-<body>
-    <div class="container-fluid bg-dark">
-        <div class="bg-dark text-success col-10 mx-auto p-3">
-            <div class="d-flex justify-content-between">
-                <h1>{{workout.name}}</h1>
-                <div>
-                    <a href="/home" class="mr-1 btn btn-info">Home</a>
-                    <a href="/logout" class="btn btn-info">Logout</a>
-                </div>
+<body style="background-color: #160241;">
+    <div class="text-success col-10 mx-auto p-3">
+        <h1 class="font-weight-bold font-italic">meFit</h1>
+        <div class="d-flex justify-content-between">
+            <h1>Workout Name: {{workout.name}}</h1>
+            <div>
+                <a href="/home" class="mr-1 btn btn-info">Home</a>
+                <a href="/logout" class="btn btn-info">Logout</a>
             </div>
-            <p>Type: {{workout.type}}</p>
-            <div class="d-flex justify-content-between">
-                <p>{{workout.name}}'s exercises:</p>
-                <div>
-                    <a href="/workouts/edit/{{workout.id}}" class="mr-2 btn btn-info">Edit Workout Name</a>
-                    <a href="/workouts/delete/{{workout.id}}" class="btn btn-danger">Delete Workout</a>
-                </div>
-            </div>
-
-            <table class="table table-success table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Recommended Sets</th>
-                        <th scope="col">Recommended Reps</th>
-                        <th scope="col">How to Video Link:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for exercise in workout.exercises%}
-                    <tr>
-                        <td><a href="/exercises/{{exercise.id}}">{{exercise.name}}</a></td>
-                        <td>{{exercise.type}}</td>
-                        <td>{{exercise.sets}}</td>
-                        <td>{{exercise.reps}}</td>
-                        <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
-                    </tr>
-                    {% endfor %}
-
         </div>
+        <p>Type: {{workout.type}}</p>
+        <div class="d-flex justify-content-between">
+            <p>{{workout.name}}'s exercises:</p>
+            <div>
+                <a href="/workouts/edit/{{workout.id}}" class="mr-2 btn btn-info">Edit Workout Name</a>
+                <a href="/workouts/delete/{{workout.id}}" class="btn btn-danger">Delete Workout</a>
+            </div>
+        </div>
+
+        <table class="table table-success table-striped table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Recommended Sets</th>
+                    <th scope="col">Recommended Reps</th>
+                    <th scope="col">How to Video Link:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exercise in workout.exercises%}
+                <tr class="text-center">
+                    <td><a href="/exercises/{{exercise.id}}">{{exercise.name}}</a></td>
+                    <td>{{exercise.type}}</td>
+                    <td>{{exercise.sets}}</td>
+                    <td>{{exercise.reps}}</td>
+                    <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
+                </tr>
+                {% endfor %}
     </div>
 </body>
 

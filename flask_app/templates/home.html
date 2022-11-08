@@ -10,8 +10,8 @@
   <title>Home</title>
 </head>
 
-<body>
-  <div class="col-8 mx-auto bg-dark text-success p-4">
+<body style="background-color: #160241;">
+  <div class="col-8 mx-auto text-success p-4">
     <div class="d-flex justify-content-between">
       <h1>Welcome to meFit!</h1>
       <div class="text-right">
@@ -23,9 +23,9 @@
       </div>
     </div>
     <h3>Your Workouts:</h3>
-    <table class="table table-success table-striped">
+    <table class="table table-success table-striped table-bordered">
       <thead>
-        <tr>
+        <tr class="text-center">
           <th scope="col">Name</th>
           <th scope="col">Type</th>
         </tr>
@@ -33,7 +33,7 @@
       <tbody>
         {% if workouts %}
         {% for workout in workouts%}
-        <tr>
+        <tr class="text-center">
           <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
           <td>{{workout.type}}</td>
         </tr>
