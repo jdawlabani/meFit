@@ -61,9 +61,9 @@ class Exercise:
 
     @classmethod
     def delete_by_id(cls, data):
-        query = "DELETE FROM exercises WHERE id = %(id)s;"
-        connectToMySQL(cls.db).query_db(query, data)
         query = "DELETE FROM workout_exercise WHERE exercise_id = %(id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        query = "DELETE FROM exercises WHERE id = %(id)s;"
         connectToMySQL(cls.db).query_db(query, data)
         return
 
