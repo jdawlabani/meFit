@@ -56,7 +56,7 @@ class Exercise:
     @classmethod
     def update_by_id(cls, data):
         query = "UPDATE exercises SET name = %(name)s, type = %(type)s, sets = %(sets)s, reps = %(reps)s , video = %(video)s WHERE id = %(id)s"
-        results = connectToMySQL(cls.db).query_db(query, data)
+        connectToMySQL(cls.db).query_db(query, data)
         return
 
     @classmethod
