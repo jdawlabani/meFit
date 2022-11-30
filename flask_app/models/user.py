@@ -60,6 +60,10 @@ class User:
         connectToMySQL(cls.db).query_db(query, data)
         return
 
+    @classmethod
+    def rate_exercise(cls, data):
+        query = "INSERT INTO exercise_rating (user_id, exercise_id, rating)"
+
     @staticmethod
     def is_valid(user_data):
         is_valid = True

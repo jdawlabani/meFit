@@ -67,6 +67,7 @@ class Exercise:
         connectToMySQL(cls.db).query_db(query, data)
         return
 
+
     @staticmethod
     def is_valid(exercise_data):
         is_valid = False
