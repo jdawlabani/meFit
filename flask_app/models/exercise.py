@@ -22,6 +22,7 @@ class Exercise:
         self.reps = data['reps']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.rating = data['rating']
         self.workouts = []
 
     @classmethod
@@ -31,7 +32,16 @@ class Exercise:
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM exercises;"
+        query = "SELECT * FROM exercises LEFT JOIN;"
+        results = connectToMySQL(cls.db).query_db(query)
+        exercise_list= []
+        for dict in results:
+            exercise_list.append(cls(dict))
+        return exercise_list
+
+    @classmethod
+    def get_all_with_ratings(cls, data):
+        query = "SELECT * FROM exercises LEFT JOIN exercise_rating ON exercise_rating.exercise_id = exercises.id LEFT JOIN users ON exercise_rating.user_id = users.id;"
         results = connectToMySQL(cls.db).query_db(query)
         exercise_list= []
         for dict in results:
