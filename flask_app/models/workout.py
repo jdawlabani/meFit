@@ -113,6 +113,17 @@ class Workout:
         connectToMySQL(cls.db).query_db(query, data)
         return
 
+    @classmethod
+    def rate(cls, data):
+        query = "INSERT INTO workout_rating (user_id, exercise_id, rating) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s);"
+        return connectToMySQL(cls.db).query_db(query, data)
+
+    @classmethod
+    def update_rating(cls, data):
+        query = "UPDATE workout_rating SET rating = %(rating)s WHERE id = %(id)s"
+        connectToMySQL(cls.db).query_db(query, data)
+        return
+
     @staticmethod
     def is_valid(workout_data):
         is_valid = True

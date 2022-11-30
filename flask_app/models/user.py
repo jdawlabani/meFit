@@ -60,28 +60,6 @@ class User:
         connectToMySQL(cls.db).query_db(query, data)
         return
 
-    @classmethod
-    def rate_exercise(cls, data):
-        query = "INSERT INTO exercise_rating (user_id, exercise_id, rating) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s);"
-        return connectToMySQL(cls.db).query_db(query, data)
-
-    @classmethod
-    def update_exercise_rating(cls, data):
-        query = "UPDATE exercise_rating SET rating = %(rating)s WHERE id = %(id)s"
-        connectToMySQL(cls.db).query_db(query, data)
-        return
-
-    @classmethod
-    def rate_workout(cls, data):
-        query = "INSERT INTO workout_rating (user_id, exercise_id, rating) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s);"
-        return connectToMySQL(cls.db).query_db(query, data)
-
-    @classmethod
-    def update_workout_rating(cls, data):
-        query = "UPDATE workout_rating SET rating = %(rating)s WHERE id = %(id)s"
-        connectToMySQL(cls.db).query_db(query, data)
-        return
-
 
     @staticmethod
     def is_valid(user_data):
