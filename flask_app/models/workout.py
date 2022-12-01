@@ -60,6 +60,16 @@ class Workout:
         return workout_list
 
     @classmethod
+    def get_all_with_ratings(cls, data):
+        query = "SELECT * FROM workouts FULL JOIN workout_rating;"
+        results = connectToMySQL(cls.db).query_db(query)
+        workout_list= []
+        for dict in results:
+            if dict['user_id'] == data['user_id'] or not dict['user_id']:
+                workout_list.append(cls(dict))
+        return workout_list
+
+    @classmethod
     def get_by_id(cls, data):
         query = "SELECT * FROM workouts WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
