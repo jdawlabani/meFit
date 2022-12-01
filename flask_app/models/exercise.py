@@ -41,11 +41,12 @@ class Exercise:
 
     @classmethod
     def get_all_with_ratings(cls, data):
-        query = "SELECT * FROM exercises LEFT JOIN exercise_rating ON exercise_rating.exercise_id = exercises.id LEFT JOIN users ON exercise_rating.user_id = users.id WHERE users.id = %(id)s;"
+        query = "SELECT * FROM exercises FULL JOIN exercise_rating;"
         results = connectToMySQL(cls.db).query_db(query)
         exercise_list= []
         for dict in results:
-            exercise_list.append(cls(dict))
+            if dict['user_id'] == data['user_id'] or not dict['user_id']:
+                exercise_list.append(cls(dict))
         return exercise_list
 
     @classmethod
