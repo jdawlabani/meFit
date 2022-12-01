@@ -59,6 +59,7 @@ class Workout:
             workout_list.append(cls(dict))
         return workout_list
 
+    #needs to be passed in user_id to get ratings from said user
     @classmethod
     def get_all_with_ratings(cls, data):
         query = "SELECT * FROM workouts FULL JOIN workout_rating;"
