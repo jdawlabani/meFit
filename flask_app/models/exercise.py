@@ -32,7 +32,7 @@ class Exercise:
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM exercises;"
+        query = "SELECT * FROM exercises ORDER BY type;"
         results = connectToMySQL(cls.db).query_db(query)
         exercise_list= []
         for dict in results:
