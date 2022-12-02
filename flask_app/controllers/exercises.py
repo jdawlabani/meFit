@@ -6,7 +6,7 @@ from flask_app.models.exercise import Exercise
 @app.route('/exercises')
 def all_exercises():
     if 'user_id' in session:
-        return render_template("all_exercises.html", exercises= Exercise.get_all())
+        return render_template("all_exercises.html", exercises= Exercise.get_all_with_ratings(session['user_id']))
     return redirect('/')
 @app.route('/exercises/new')
 def new_exercise():

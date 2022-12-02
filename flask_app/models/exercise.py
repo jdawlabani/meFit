@@ -22,7 +22,8 @@ class Exercise:
         self.reps = data['reps']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.rating = data['rating']
+        #always start with a 0 (unrated) rating when initializing
+        self.rating = 0
         self.workouts = []
 
     @classmethod
@@ -52,15 +53,14 @@ class Exercise:
         #get all the ratings for exercises that the user has rated
         query = "SELECT * FROM users LEFT JOIN exercise_rating ON exercise_rating.user_id = users.id LEFT JOIN exercises ON exercise_rating.exercise_id = exercises.id WHERE users.id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
-        for dict in results:
-            temp = {
-                'rating': dict['rating'],
-                'exercise_id': dict['exercises.id']
-            }
-            rating_list.append(temp)
+        if results:
+            for dict in results:
+                temp = {
+                    'rating': dict['rating'],
+                    'exercise_id': dict['exercises.id']
+                }
+                rating_list.append(temp)
         for exercise in exercise_list:
-            #start by setting the rating to 0 before checking for ratings
-            exercise.rating = 0
             for rating in rating_list:
                 if exercise.id == rating['exercise_id']:
                     exercise.rating = rating['rating']

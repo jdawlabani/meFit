@@ -30,6 +30,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Recommended Sets</th>
                     <th scope="col">Recommended Reps</th>
+                    <th scope="col">Your Rating</th>
                     <th scope="col">How to Video Link:</th>
                 </tr>
             </thead>
@@ -40,6 +41,11 @@
                     <td>{{exercise.type}}</td>
                     <td>{{exercise.sets}}</td>
                     <td>{{exercise.reps}}</td>
+                    {% if exercise.rating == 0 %}
+                        <td>Unrated</td>
+                    {% else %}
+                        <td>{{exercise.rating}}</td>
+                    {% endif %}
                     <td><a href={{exercise.video}}>{{exercise.video}}</a></td>
                 </tr>
                 {% endfor %}
