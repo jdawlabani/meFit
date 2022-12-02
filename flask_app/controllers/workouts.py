@@ -35,9 +35,34 @@ def generate_workout():
 @app.route('/workouts/<int:id>')
 def show_workout(id):
     if 'user_id' in session:
-        this_workout = Workout.get_by_id_with_exercises({'id': id})
+        this_workout = Workout.get_by_id_with_exercises({'id': id, 'user_id': session['user_id']})
         return render_template('show_workout.html', workout = this_workout)
     return redirect('/')
+
+@app.route('/workouts/rate/<int:id>')
+def rate_workout(id):
+    if 'user_id' in session:
+        this_workout = Workout.get_by_id_with_exercises({'id': id, 'user_id': session['user_id']})
+        return render_template('rate_workout.html', workout = this_workout)
+    return redirect('/')
+
+@app.route('/workouts/confirm_rating/<int:id>', methods = ['post'])
+def confirm_workout_rating(id):
+    if 'user_id' in session:
+        this_workout = Workout.get_by_id_with_exercises({'id': id, 'user_id': session['user_id']})
+        data = {
+            'rating': request.form['rating'],
+            'workout_id': this_workout.id,
+            'user_id': session['user_id']
+            }
+        if this_workout.rating == 0:
+            Workout.create_rating(data)
+        else:
+            Workout.update_rating(data)
+        print(this_workout.rating)
+        return redirect('/workouts/'+str(id))
+    return redirect('/')
+
 
 @app.route('/workouts/edit/<int:id>')
 def edit_workout(id):

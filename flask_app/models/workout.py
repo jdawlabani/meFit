@@ -61,16 +61,6 @@ class Workout:
             workout_list.append(cls(dict))
         return workout_list
 
-    #needs to be passed in user_id to get ratings from said user
-    @classmethod
-    def get_all_with_ratings(cls, data):
-        query = "SELECT * FROM workouts FULL JOIN workout_rating;"
-        results = connectToMySQL(cls.db).query_db(query)
-        workout_list= []
-        for dict in results:
-            if dict['user_id'] == data['user_id'] or not dict['user_id']:
-                workout_list.append(cls(dict))
-        return workout_list
     @classmethod
     def get_all_with_ratings(cls, data):
         #get all exercises
@@ -112,15 +102,15 @@ class Workout:
         for dict in results:
             exercise_data = {
                 'id': dict['exercises.id'],
-                'name': dict['exercises.name'],
-                'type': dict['exercises.type'],
-                'video': dict['video'],
-                'sets': dict['sets'],
-                'reps': dict['reps'],
-                'created_at': dict['exercises.created_at'],
-                'updated_at': dict['exercises.updated_at']
+                'user_id': data['user_id']
             }
-            this_workout.exercises.append(Exercise(exercise_data))
+            this_exercise = Exercise.get_by_id_with_rating(exercise_data)
+            this_workout.exercises.append(this_exercise)
+        #grab the rating for this workout
+        query = "SELECT * FROM users LEFT JOIN workout_rating ON workout_rating.user_id = users.id LEFT JOIN workouts ON workout_rating.workout_id = workouts.id WHERE users.id = %(user_id)s AND workouts.id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            this_workout.rating = results[0]['rating']
         return this_workout
 
     @classmethod
@@ -153,13 +143,13 @@ class Workout:
         return
 
     @classmethod
-    def rate(cls, data):
-        query = "INSERT INTO workout_rating (user_id, exercise_id, rating) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s);"
+    def create_rating(cls, data):
+        query = "INSERT INTO workout_rating (user_id, workout_id, rating) VALUES (%(user_id)s, %(workout_id)s, %(rating)s);"
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
     def update_rating(cls, data):
-        query = "UPDATE workout_rating SET rating = %(rating)s WHERE id = %(id)s"
+        query = "UPDATE workout_rating SET rating = %(rating)s WHERE user_id = %(user_id)s AND workout_id = %(workout_id)s;"
         connectToMySQL(cls.db).query_db(query, data)
         return
 

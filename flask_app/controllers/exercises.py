@@ -6,7 +6,7 @@ from flask_app.models.exercise import Exercise
 @app.route('/exercises')
 def all_exercises():
     if 'user_id' in session:
-        return render_template("all_exercises.html", exercises= Exercise.get_all_with_ratings({'id': session['user_id']}))
+        return render_template("all_exercises.html", exercises= Exercise.get_all_with_ratings({'user_id': session['user_id']}))
     return redirect('/')
 @app.route('/exercises/new')
 def new_exercise():
@@ -45,11 +45,12 @@ def rate_exercise(id):
     return redirect('/')
 
 @app.route('/exercises/confirm_rating/<int:id>', methods = ['post'])
-def confirm_rating(id):
+def confirm_exercise_rating(id):
     if 'user_id' in session:
         this_exercise = Exercise.get_by_id_with_rating({'id': id, 'user_id': session['user_id']})
         data = {
             'rating': request.form['rating'],
+            'weight': this_exercise.weight,
             'exercise_id': this_exercise.id,
             'user_id': session['user_id']
             }

@@ -52,7 +52,7 @@ class Exercise:
         for dict in results:
             exercise_list.append(cls(dict))
         #get all the ratings for exercises that the user has rated
-        query = "SELECT * FROM users LEFT JOIN exercise_rating ON exercise_rating.user_id = users.id LEFT JOIN exercises ON exercise_rating.exercise_id = exercises.id WHERE users.id = %(id)s;"
+        query = "SELECT * FROM users LEFT JOIN exercise_rating ON exercise_rating.user_id = users.id LEFT JOIN exercises ON exercise_rating.exercise_id = exercises.id WHERE users.id = %(user_id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         if results:
             for dict in results:
@@ -110,9 +110,8 @@ class Exercise:
     
     @classmethod
     def create_rating(cls, data):
-        query = "INSERT INTO exercise_rating (user_id, exercise_id, rating, weight) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s, 0);"
+        query = "INSERT INTO exercise_rating (user_id, exercise_id, rating, weight) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s, %(weight)s);"
         return connectToMySQL(cls.db).query_db(query, data)
-
 
     @classmethod
     def update_rating(cls, data):
