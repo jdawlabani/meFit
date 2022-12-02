@@ -29,6 +29,8 @@
         <tr class="text-center">
           <th scope="col">Name</th>
           <th scope="col">Type</th>
+          <th scope="col">Your Rating (1-5)</th>
+
         </tr>
       </thead>
       <tbody>
@@ -37,6 +39,11 @@
         <tr class="text-center">
           <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
           <td>{{workout.type}}</td>
+          {% if workout.rating == 0 %}
+            <td>Unrated</td>
+          {% else %}
+            <td>{{workout.rating}}</td>
+          {% endif %}
         </tr>
         {% endfor %}
         {% endif %}

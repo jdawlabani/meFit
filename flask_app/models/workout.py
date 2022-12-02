@@ -126,6 +126,16 @@ class Workout:
         workout_list= []
         for dict in results:
             workout_list.append(cls(dict))
+        #cycle through the workouts and grab the ratings (if there is one)
+        for workout in workout_list:
+            temp_data = {
+                'id': workout.id,
+                'user_id': data['user_id']
+            }
+            query = "SELECT * FROM users LEFT JOIN workout_rating ON workout_rating.user_id = users.id LEFT JOIN workouts ON workout_rating.workout_id = workouts.id WHERE users.id = %(user_id)s AND workouts.id = %(id)s;"
+            results = connectToMySQL(cls.db).query_db(query, temp_data)
+            if results:
+                workout.rating = results[0]['rating']
         return workout_list
 
     @classmethod
