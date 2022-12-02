@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Edit {{exercise.name}}</title>
+</head>
+
+<body class="background">
+    <div class="d-flex justify-content-between align-items-center col-8 mx-auto p-3">
+        <h1 class="font-weight-bold font-italic">meFit</h1>
+        <div>
+            <a href="/exercises" class="mr-1 btn btn-secondary">All Exercises</a>
+            <a href="/home" class="mr-1 btn btn-secondary">Home</a>
+            <a href="/logout" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+    <div class="text-center col-8 mx-auto m-0 p-3">
+        <h2>Rate {{exercise.name}}</h2>
+        <form action="/exercises/confirm_rating/{{exercise.id}}" , method="post">
+            <div>
+                <label for="rating">Select a rating from 1-5:</label>
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <br>
+            <button class="btn btn-secondary">Rate Exercise</button>
+        </form>
+    </div>
+</body>
+
+</html>

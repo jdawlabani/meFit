@@ -12,7 +12,8 @@ class Workout:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
-        self.rating = data['rating']
+        #rating will always be 0 (unrated) on initialization
+        self.rating = 0
         self.exercises = []
 
     @classmethod

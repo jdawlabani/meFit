@@ -22,8 +22,9 @@ class Exercise:
         self.reps = data['reps']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        #always start with a 0 (unrated) rating when initializing
+        #always start with a 0 (unrated) rating and 0 (unlogged) weight last used when initializing
         self.rating = 0
+        self.weight = 0
         self.workouts = []
 
     @classmethod
@@ -73,6 +74,18 @@ class Exercise:
         return cls(results[0])
 
     @classmethod
+    def get_by_id_with_rating(cls, data):
+        query = "SELECT * FROM exercises WHERE id = %(id)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        this_exercise = cls(results[0])
+        query = "SELECT * FROM users LEFT JOIN exercise_rating ON exercise_rating.user_id = users.id LEFT JOIN exercises ON exercise_rating.exercise_id = exercises.id WHERE users.id = %(user_id)s AND exercises.id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            #results should only have one row if that so access the first row's rating and set it equal to exercise's rating
+            this_exercise.rating = results[0]['rating']
+        return this_exercise
+
+    @classmethod
     def get_by_type(cls,data):
         query = "SELECT * FROM exercises WHERE type = %(type)s"
         results = connectToMySQL(cls.db).query_db(query, data)
@@ -96,13 +109,14 @@ class Exercise:
         return
     
     @classmethod
-    def rate(cls, data):
-        query = "INSERT INTO exercise_rating (user_id, exercise_id, rating) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s);"
+    def create_rating(cls, data):
+        query = "INSERT INTO exercise_rating (user_id, exercise_id, rating, weight) VALUES (%(user_id)s, %(exercise_id)s, %(rating)s, 0);"
         return connectToMySQL(cls.db).query_db(query, data)
+
 
     @classmethod
     def update_rating(cls, data):
-        query = "UPDATE exercise_rating SET rating = %(rating)s WHERE id = %(id)s"
+        query = "UPDATE exercise_rating SET rating = %(rating)s WHERE exercise_id = %(exercise_id)s AND user_id = %(user_id)s"
         connectToMySQL(cls.db).query_db(query, data)
         return
 

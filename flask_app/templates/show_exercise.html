@@ -22,10 +22,19 @@
                 <a href="/logout" class="btn btn-secondary">Logout</a>
             </div>
         </div>
-        <h4>Type: {{exercise.type}}</h4>
-        <h4>Recommended Sets and Reps: {{exercise.sets}} sets of {{exercise.reps}}</h4>
-        <h4>How to Video Link: <a href="{{exercise.video}}" target="_blank"
-                rel="noopener noreferrer">{{exercise.video}}</a></h4>
+        <h2>Type: <br>{{exercise.type}}</h2>
+        <hr>
+        <h2>Recommended Sets and Reps: <br>{{exercise.sets}} sets of {{exercise.reps}}</h2>
+        <hr>
+        {% if exercise.rating == 0 %}
+            <h2>Your Rating: <br> Unrated</h2>
+        {% else %}
+            <h2>Your Rating: <br>{{exercise.rating}}</h2>
+        {% endif %}
+        <hr>
+        <h2>How to Video Link: <a href="{{exercise.video}}" target="_blank"
+                rel="noopener noreferrer">{{exercise.video}}</a></h2>
+        <a href="/exercises/rate/{{exercise.id}}" class="mr-3 btn btn-info">Rate Exercise</a>
         <a href="/exercises/edit/{{exercise.id}}" class="mr-3 btn btn-secondary">Edit Exercise</a>
         <a href="/exercises/delete/{{exercise.id}}" class="btn btn-danger">Delete Exercise</a>
     </div>
