@@ -42,12 +42,28 @@ class Exercise:
     #needs to be passed in user_id to get ratings from said user
     @classmethod
     def get_all_with_ratings(cls, data):
-        query = "SELECT * FROM exercises FULL JOIN exercise_rating;"
+        #get all exercises
+        query = "SELECT * FROM exercises"
         results = connectToMySQL(cls.db).query_db(query)
         exercise_list= []
+        rating_list=[]
         for dict in results:
-            if dict['user_id'] == data['user_id'] or not dict['user_id']:
-                exercise_list.append(cls(dict))
+            exercise_list.append(cls(dict))
+        #get all the ratings for exercises that the user has rated
+        query = "SELECT * FROM users LEFT JOIN exercise_rating ON exercise_rating.user_id = users.id LEFT JOIN exercises ON exercise_rating.exercise_id = exercises.id WHERE users.id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        for dict in results:
+            temp = {
+                'rating': dict['rating'],
+                'exercise_id': dict['exercises.id']
+            }
+            rating_list.append(temp)
+        for exercise in exercise_list:
+            #start by setting the rating to 0 before checking for ratings
+            exercise.rating = 0
+            for rating in rating_list:
+                if exercise.id == rating['exercise_id']:
+                    exercise.rating = rating['rating']
         return exercise_list
 
     @classmethod

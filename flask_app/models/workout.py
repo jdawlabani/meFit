@@ -12,6 +12,7 @@ class Workout:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
+        self.rating = data['rating']
         self.exercises = []
 
     @classmethod
@@ -69,6 +70,32 @@ class Workout:
             if dict['user_id'] == data['user_id'] or not dict['user_id']:
                 workout_list.append(cls(dict))
         return workout_list
+    @classmethod
+    def get_all_with_ratings(cls, data):
+        #get all exercises
+        query = "SELECT * FROM workouts"
+        results = connectToMySQL(cls.db).query_db(query)
+        workout_list= []
+        rating_list=[]
+        for dict in results:
+            workout_list.append(cls(dict))
+        #get all the ratings for workouts that the user has rated
+        query = "SELECT * FROM users LEFT JOIN workout_rating ON workout_rating.user_id = users.id LEFT JOIN workouts ON workout_rating.workout_id = workouts.id WHERE users.id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        for dict in results:
+            temp = {
+                'rating': dict['rating'],
+                'workout_id': dict['workouts.id']
+            }
+            rating_list.append(temp)
+        for workout in workout_list:
+            #start by setting the rating to 0 before checking for user's ratings
+            workout.rating = 0
+            for rating in rating_list:
+                if workout.id == rating['workout_id']:
+                    workout.rating = rating['rating']
+        return workout_list
+
 
     @classmethod
     def get_by_id(cls, data):
