@@ -22,9 +22,9 @@ class Exercise:
         self.reps = data['reps']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        #always start with a 0 (unrated) rating and 0 (unlogged) weight last used when initializing
-        self.rating = 0
-        self.weight = 0
+        #always start with a -1 (unrated) rating and -1 (unlogged) weight last used when initializing
+        self.rating = -1
+        self.weight = -1
         self.workouts = []
 
     @classmethod
