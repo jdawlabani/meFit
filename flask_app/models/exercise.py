@@ -115,7 +115,14 @@ class Exercise:
 
     @classmethod
     def update_rating(cls, data):
-        query = "UPDATE exercise_rating SET rating = %(rating)s WHERE exercise_id = %(exercise_id)s AND user_id = %(user_id)s"
+        query = "UPDATE exercise_rating SET rating = %(rating)s WHERE exercise_id = %(exercise_id)s AND user_id = %(user_id)s;"
+        connectToMySQL(cls.db).query_db(query, data)
+        return
+
+    #do not need to have a create weight method as user will have to rate an exercise before logging it.
+    @classmethod
+    def log_weight(cls, data):
+        query = "UPDATE exercise_rating SET weight = %(weight)s WHERE exercise_id = %(exercise_id)s AND user_id = %(user_id)s;"
         connectToMySQL(cls.db).query_db(query, data)
         return
 
