@@ -39,7 +39,7 @@
         <tr class="text-center">
           <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
           <td>{{workout.type}}</td>
-          {% if workout.rating == 0 %}
+          {% if workout.rating < 0 %}
             <td>Unrated</td>
           {% else %}
             <td>{{workout.rating}}</td>

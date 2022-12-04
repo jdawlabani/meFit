@@ -26,7 +26,7 @@
         <hr>
         <h2>Recommended Sets and Reps: <br>{{exercise.sets}} sets of {{exercise.reps}}</h2>
         <hr>
-        {% if exercise.rating == 0 %}
+        {% if exercise.rating < 0 %}
             <h2>Your Rating: <br> Unrated</h2>
         {% else %}
             <h2>Your Rating: <br>{{exercise.rating}}</h2>

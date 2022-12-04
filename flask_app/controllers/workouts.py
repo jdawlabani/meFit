@@ -55,7 +55,7 @@ def confirm_workout_rating(id):
             'workout_id': this_workout.id,
             'user_id': session['user_id']
             }
-        if this_workout.rating == 0:
+        if this_workout.rating < 0:
             Workout.create_rating(data)
         else:
             Workout.update_rating(data)
