@@ -63,6 +63,13 @@ def confirm_workout_rating(id):
         return redirect('/workouts/'+str(id))
     return redirect('/')
 
+@app.route('/workouts/log_weights/<int:id>')
+def log_workout(id):
+    if 'user_id' in session:
+        this_workout = Workout.get_by_id_with_exercises({'id': id, 'user_id': session['user_id']})
+        return render_template('log_workout.html', workout = this_workout)
+    return redirect('/')
+
 
 @app.route('/workouts/edit/<int:id>')
 def edit_workout(id):
