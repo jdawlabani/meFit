@@ -21,11 +21,11 @@
         </div>
     </div>
     <div class="text-center col-8 mx-auto m-0 p-3">
-        <h2>Rate {{workout.name}}</h2>
+        <h2>Log Weights and Rate: {{workout.name}}</h2>
         <form action="/workouts/confirm_rating/{{workout.id}}" , method="post">
             {% for exercise in workout.exercises %}
                 <div>
-                    <label for="{{exercise.id}}">{{exercise.name}}</label>
+                    <label for="{{exercise.id}}">{{exercise.name}}'s weight: </label>
                     <input type="text" name="{{exercise.id}}">
                 </div>
             {% endfor %}
