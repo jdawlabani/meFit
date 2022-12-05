@@ -23,6 +23,12 @@
     <div class="text-center col-8 mx-auto m-0 p-3">
         <h2>Rate {{workout.name}}</h2>
         <form action="/workouts/confirm_rating/{{workout.id}}" , method="post">
+            {% for exercise in workout.exercises %}
+                <div>
+                    <label for="{{exercise.id}}">{{exercise.name}}</label>
+                    <input type="text" name="{{exercise.id}}">
+                </div>
+            {% endfor %}
             <div>
                 <label for="rating">Select a rating from 1-5:</label>
                 <select name="rating">
