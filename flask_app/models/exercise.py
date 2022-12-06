@@ -182,4 +182,5 @@ class Exercise:
             is_valid = True
         if not is_valid:
             flash("Weight logged cannot be negative.")
+        return is_valid
 
