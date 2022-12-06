@@ -44,7 +44,7 @@ def show_workout(id):
 def rate_workout(id):
     if 'user_id' in session:
         this_workout = Workout.get_by_id_with_exercises({'id': id, 'user_id': session['user_id']})
-        return render_template('rate_workout.html', workout = this_workout)
+        return render_template('rate_workout.html', workout = this_workout, messages = get_flashed_messages())
     return redirect('/')
 
 @app.route('/workouts/confirm_rating/<int:id>', methods = ['post'])
@@ -60,14 +60,14 @@ def confirm_workout_rating(id):
             Workout.create_rating(data)
         else:
             Workout.update_rating(data)
-            is_valid = True
         for exercise in this_workout.exercises:
             e_data = {
                 'weight': request.form[str(exercise.id)],
                 'exercise_id': exercise.id,
                 'user_id': session['user_id']
             }
-            if 
+            if not Exercise.is_valid_weight(e_data):
+                return redirect('/workouts/rate/'+str(id))
             Exercise.log_weight(e_data)
         return redirect('/workouts/'+str(id))
     return redirect('/')
