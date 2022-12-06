@@ -60,13 +60,14 @@ def confirm_workout_rating(id):
             Workout.create_rating(data)
         else:
             Workout.update_rating(data)
+            is_valid = True
         for exercise in this_workout.exercises:
-            e = str(exercise.id)
             e_data = {
-                'weight': request.form[e],
+                'weight': request.form[str(exercise.id)],
                 'exercise_id': exercise.id,
                 'user_id': session['user_id']
             }
+            if 
             Exercise.log_weight(e_data)
         return redirect('/workouts/'+str(id))
     return redirect('/')

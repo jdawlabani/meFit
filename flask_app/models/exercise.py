@@ -177,5 +177,9 @@ class Exercise:
 
     @staticmethod
     def is_valid_weight(exercise_data):
-        
+        is_valid = False
+        if exercise_data['weight'] > 0:
+            is_valid = True
+        if not is_valid:
+            flash("Weight logged cannot be negative.")
 
