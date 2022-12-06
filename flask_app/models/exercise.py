@@ -83,6 +83,7 @@ class Exercise:
         if results:
             #results should only have one row if that so access the first row's rating and set it equal to exercise's rating
             this_exercise.rating = results[0]['rating']
+            this_exercise.weight = results[0]['weight']
         return this_exercise
 
     @classmethod
@@ -173,3 +174,8 @@ class Exercise:
                 flash("Exercise name must be unique")
                 is_valid = False
         return is_valid
+
+    @staticmethod
+    def is_valid_weight(exercise_data):
+        
+

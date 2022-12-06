@@ -12,7 +12,7 @@
 </head>
 
 <body class="background">
-    <div class="col-10 mx-auto p-3">
+    <div class="col-12 mx-auto p-3">
         <h1 class="font-weight-bold font-italic">meFit</h1>
         <div class="d-flex justify-content-between">
             <h1>Workout Name: {{workout.name}}</h1>
@@ -44,6 +44,8 @@
                     <th scope="col">Recommended Sets</th>
                     <th scope="col">Recommended Reps</th>
                     <th scope="col">Your Rating (1-5)</th>
+                    <th scope="col">Previous Weight </th>
+                    <th scope="col">Next Weight</th>
                     <th scope="col">How to Video Link:</th>
                 </tr>
             </thead>
@@ -54,12 +56,18 @@
                     <td>{{exercise.type}}</td>
                     <td>{{exercise.sets}}</td>
                     <td>{{exercise.reps}}</td>
-                    {% if exercise.rating == 0 %}
+                    {% if exercise.rating <= 0 %}
                         <td>Unrated</td>
                     {% else %}
                         <td>{{exercise.rating}}</td>
                     {% endif %}
-                    <td><a href={{exercise.video}} target="_blank" rel="noopener noreferrer">{{exercise.video}}</a></td>
+                    {% if exercise.weight <= 0 %}
+                        <td>No weight logged</td>
+                        <td>No weight logged</td>
+                    {% else %}
+                        <td>{{exercise.weight}}</td>
+                    {% endif %}
+                    <td><a href={{exercise.video}} target="_blank" rel="noopener noreferrer">link</a></td>
                 </tr>
                 {% endfor %}
     </div>

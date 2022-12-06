@@ -2,6 +2,7 @@ from crypt import methods
 from flask_app import app
 from flask import render_template, redirect, request, session, flash, get_flashed_messages
 from flask_app.models.workout import Workout
+from flask_app.models.exercise import Exercise
 
 @app.route('/workouts/new')
 def new_workout():
@@ -59,7 +60,14 @@ def confirm_workout_rating(id):
             Workout.create_rating(data)
         else:
             Workout.update_rating(data)
-        print(this_workout.rating)
+        for exercise in this_workout.exercises:
+            e = str(exercise.id)
+            e_data = {
+                'weight': request.form[e],
+                'exercise_id': exercise.id,
+                'user_id': session['user_id']
+            }
+            Exercise.log_weight(e_data)
         return redirect('/workouts/'+str(id))
     return redirect('/')
 
