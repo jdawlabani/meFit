@@ -58,13 +58,15 @@ class Exercise:
             for dict in results:
                 temp = {
                     'rating': dict['rating'],
-                    'exercise_id': dict['exercises.id']
+                    'exercise_id': dict['exercises.id'],
+                    'weight': dict['weight']
                 }
                 rating_list.append(temp)
         for exercise in exercise_list:
             for rating in rating_list:
                 if exercise.id == rating['exercise_id']:
                     exercise.rating = rating['rating']
+                    exercise.weight = rating['weight']
         return exercise_list
 
     @classmethod
