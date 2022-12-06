@@ -43,6 +43,14 @@
             <button class="btn btn-secondary">Rate Workout</button>
         </form>
     </div>
+    <div class="white-background text-danger text-center col-8 mx-auto">
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+
 </body>
 
 </html>
