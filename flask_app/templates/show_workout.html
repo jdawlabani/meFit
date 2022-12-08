@@ -56,12 +56,12 @@
                     <td>{{exercise.type}}</td>
                     <td>{{exercise.sets}}</td>
                     <td>{{exercise.reps}}</td>
-                    {% if exercise.rating <= 0 %}
+                    {% if exercise.rating < 0 %}
                         <td>Unrated</td>
                     {% else %}
                         <td>{{exercise.rating}}</td>
                     {% endif %}
-                    {% if exercise.weight <= 0 %}
+                    {% if exercise.weight < 0 %}
                         <td>No weight logged</td>
                         <td>No weight logged</td>
                     {% else %}
