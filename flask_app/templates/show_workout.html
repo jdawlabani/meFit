@@ -22,7 +22,7 @@
             </div>
         </div>
         <p>Type: {{workout.type}}</p>
-        {% if workout.rating < 0 %}
+        {% if workout.rating <= 0 %}
             <p>Your Rating: Unrated</p>
         {% else %}
             <p>Your Rating: {{workout.rating}}</p>
