@@ -21,21 +21,21 @@
                 <a href="/logout" class="btn btn-secondary">Logout</a>
             </div>
         </div>
-        <p>Type: {{workout.type}}</p>
-        {% if workout.rating < 0 %}
-            <p>Your Rating: Unrated</p>
-        {% else %}
-            <p>Your Rating: {{workout.rating}}</p>
-        {% endif %}
-        <div class="d-flex justify-content-between">
-            <p>{{workout.name}}'s exercises:</p>
-            <div>
-                <a href="/workouts/rate/{{workout.id}}" class="mr-2 btn btn-info">Log This Workout</a>
-                <a href="/workouts/edit/{{workout.id}}" class="mr-2 btn btn-secondary">Edit Workout Name</a>
-                <a href="/workouts/delete/{{workout.id}}" class="btn btn-danger">Delete Workout</a>
-            </div>
+        <div class="black-background">
+            <p>Type: {{workout.type}}</p>
+            {% if workout.rating < 0 %} <p>Your Rating: Unrated</p>
+                {% else %}
+                <p>Your Rating: {{workout.rating}}</p>
+                {% endif %}
+                <div class="d-flex justify-content-between align-items-start">
+                    <p>{{workout.name}}'s exercises:</p>
+                    <div>
+                        <a href="/workouts/rate/{{workout.id}}" class="mr-2 btn btn-info">Log This Workout</a>
+                        <a href="/workouts/edit/{{workout.id}}" class="mr-2 btn btn-secondary">Edit Workout Name</a>
+                        <a href="/workouts/delete/{{workout.id}}" class="btn btn-danger">Delete Workout</a>
+                    </div>
+                </div>
         </div>
-
         <table class="table table-light table-striped table-bordered">
             <thead>
                 <tr class="text-center">
@@ -55,17 +55,15 @@
                     <td>{{exercise.type}}</td>
                     <td>{{exercise.sets}}</td>
                     <td>{{exercise.reps}}</td>
-                    {% if exercise.rating < 0 %}
-                        <td>Unrated</td>
-                    {% else %}
+                    {% if exercise.rating < 0 %} <td>Unrated</td>
+                        {% else %}
                         <td>{{exercise.rating}}</td>
-                    {% endif %}
-                    {% if exercise.weight < 0 %}
-                        <td>No weight logged</td>
-                    {% else %}
-                        <td>{{exercise.weight}}</td>
-                    {% endif %}
-                    <td><a href={{exercise.video}} target="_blank" rel="noopener noreferrer">link</a></td>
+                        {% endif %}
+                        {% if exercise.weight < 0 %} <td>No weight logged</td>
+                            {% else %}
+                            <td>{{exercise.weight}}</td>
+                            {% endif %}
+                            <td><a href={{exercise.video}} target="_blank" rel="noopener noreferrer">link</a></td>
                 </tr>
                 {% endfor %}
     </div>
