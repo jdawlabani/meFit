@@ -27,6 +27,12 @@
                 <div>
                     <label for="{{exercise.id}}">{{exercise.name}}'s weight: </label>
                     <input type="number" name="{{exercise.id}}">
+                    {% if exercise.weight >= 0 %}
+                    <p>(Recommended Weight: {{exercise.weight + 5}} - {{exercise.weight + 15}})</p>
+                    {% else %}
+                    <p>This is your first time with this exercise. Try a range of weights and challenge yourself!</p>
+                    {% endif %}
+                    <br>
                 </div>
             {% endfor %}
             <div>
