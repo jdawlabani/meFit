@@ -41,7 +41,7 @@
                     <td>{{exercise.type}}</td>
                     <td>{{exercise.sets}}</td>
                     <td>{{exercise.reps}}</td>
-                    {% if exercise.rating <= 0 %}
+                    {% if exercise.rating < 0 %}
                         <td>Unrated</td>
                     {% else %}
                         <td>{{exercise.rating}}</td>
